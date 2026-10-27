@@ -58,17 +58,17 @@ orderForm.addEventListener('submit', (event) => {
       }
     });
 
-    // Показываем стандартные сообщения браузера.
+  
     orderForm.reportValidity();
     return;
   }
 
-  // Показываем сообщение об успешной отправке.
+
   successMessage.hidden = false;
 
-  // Очищаем форму.
+
   orderForm.reset();
 
-  // Закрываем модальное окно.
+
   orderDialog.close();
 });
