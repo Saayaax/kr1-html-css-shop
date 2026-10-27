@@ -53,27 +53,9 @@ body {
   background-color: var(--color-bg);
 }
 
-header,
-main,
-footer {
+main {
   padding: var(--space-lg);
 }
-
-header {
-  background-color: var(--color-surface);
-}
-
-footer {
-  background-color: var(--color-surface);
-}
-
-section h2 {
-  margin-top: 0;
-}
-
-/* ===============================
-   3. Общие элементы интерфейса
-   =============================== */
 
 a {
   color: var(--color-primary);
@@ -88,21 +70,47 @@ a:focus-visible {
   outline-offset: 3px;
 }
 
+/* Подсветка раздела, к которому выполнен переход по якорю */
+:target {
+  outline: 2px dashed var(--color-primary);
+  outline-offset: 4px;
+}
+
+/* ===============================
+   3. Общие элементы интерфейса
+   =============================== */
+
+/* Блок button */
+
 .button {
   display: inline-block;
   padding: var(--space-sm) var(--space-md);
-  color: var(--color-white);
-  background-color: var(--color-primary);
-  text-decoration: none;
-  border: none;
+  border: 1px solid transparent;
   border-radius: var(--radius-sm);
   font: inherit;
+  text-decoration: none;
   cursor: pointer;
 }
 
-.button:hover {
+.button--primary {
+  color: var(--color-white);
+  background-color: var(--color-primary);
+}
+
+.button--primary:hover {
   color: var(--color-white);
   background-color: var(--color-primary-dark);
+}
+
+.button--secondary {
+  color: var(--color-primary);
+  background-color: transparent;
+  border-color: var(--color-primary);
+}
+
+.button--secondary:hover {
+  color: var(--color-white);
+  background-color: var(--color-primary);
 }
 
 .button:focus-visible {
@@ -110,27 +118,50 @@ a:focus-visible {
   outline-offset: 3px;
 }
 
-.button:disabled {
+.button:disabled,
+.button--disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+/* Блок section — универсальный раздел страницы */
+
+.section {
+  max-width: var(--container-width);
+  margin: 0 auto var(--space-xl);
+}
+
+.section__title {
+  margin-top: 0;
+}
+
+.section__text {
+  margin: 0 0 var(--space-md);
 }
 
 /* ===============================
    4. Компоненты страницы
    =============================== */
 
-/* Шапка и навигация */
+/* Блок site-header */
 
 .site-header {
-  max-width: var(--container-width);
-  margin: 0 auto;
+  background-color: var(--color-surface);
 }
 
-.site-logo {
-  font-weight: bold;
-  text-decoration: none;
-  color: var(--color-text);
+.site-header__inner {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: var(--space-lg);
 }
+
+.site-header__logo {
+  font-weight: 700;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+/* Блок site-nav */
 
 .site-nav__list {
   display: flex;
@@ -143,7 +174,7 @@ a:focus-visible {
   list-style: none;
 }
 
-.site-nav__list a {
+.site-nav__link {
   display: inline-block;
   padding: var(--space-sm) var(--space-md);
   color: var(--color-primary);
@@ -151,12 +182,22 @@ a:focus-visible {
   border-radius: var(--radius-sm);
 }
 
-.site-nav__list a:hover {
+.site-nav__link:hover {
   color: var(--color-white);
   background-color: var(--color-primary);
 }
 
-/* Хлебные крошки */
+.site-nav__link:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.site-nav__link--active {
+  color: var(--color-white);
+  background-color: var(--color-primary);
+}
+
+/* Блок breadcrumbs */
 
 .breadcrumbs {
   max-width: var(--container-width);
@@ -165,23 +206,16 @@ a:focus-visible {
   color: var(--color-muted);
 }
 
-.breadcrumbs a {
+.breadcrumbs__link {
   color: var(--color-primary);
 }
 
-.breadcrumbs span::before {
+.breadcrumbs__current::before {
   content: " / ";
   color: var(--color-muted);
 }
 
-/* Подсветка раздела, к которому выполнен переход по якорю */
-
-:target {
-  outline: 2px dashed var(--color-primary);
-  outline-offset: 4px;
-}
-
-/* Первый экран и разделы */
+/* Блок hero */
 
 .hero {
   max-width: var(--container-width);
@@ -191,16 +225,26 @@ a:focus-visible {
   border-radius: var(--radius-lg);
 }
 
-.section {
-  max-width: var(--container-width);
-  margin: 0 auto var(--space-xl);
-}
-
-.section h2 {
+.hero__title {
   margin-top: 0;
 }
 
-/* Карточки товаров */
+.hero__text {
+  margin: 0 0 var(--space-lg);
+}
+
+/* Блок advantages-list */
+
+.advantages-list {
+  margin: 0;
+  padding-left: var(--space-lg);
+}
+
+.advantages-list__item {
+  margin-bottom: var(--space-xs);
+}
+
+/* Блок products-grid */
 
 .products-grid {
   display: grid;
@@ -208,11 +252,12 @@ a:focus-visible {
   gap: var(--space-lg);
 }
 
+/* Блок product-card */
+
 .product-card {
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
-  margin-bottom: 0;
   padding: var(--space-md);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -223,17 +268,39 @@ a:focus-visible {
   border-color: var(--color-primary);
 }
 
-.product-card h3,
-.product-card p {
-  margin: 0;
+.product-card--featured {
+  border-color: var(--color-primary);
 }
 
-.product-card .button {
+.product-card--discount {
+  border-color: var(--color-danger);
+}
+
+.product-card__title {
+  margin: 0;
+  color: var(--color-text);
+}
+
+.product-card__description {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.product-card__price {
+  margin: 0;
+  font-weight: 700;
+}
+
+.product-card--discount .product-card__price {
+  color: var(--color-danger);
+}
+
+.product-card__button {
   margin-top: auto;
   align-self: flex-start;
 }
 
-/* Страница каталога */
+/* Блок catalog-layout */
 
 .catalog-layout {
   max-width: var(--container-width);
@@ -244,6 +311,8 @@ a:focus-visible {
   gap: var(--space-lg);
 }
 
+/* Блок catalog-filters */
+
 .catalog-filters {
   grid-area: filters;
   align-self: start;
@@ -253,34 +322,44 @@ a:focus-visible {
   background-color: var(--color-surface);
 }
 
+.catalog-filters__title {
+  margin-top: 0;
+}
+
+/* Блок catalog-products */
+
 .catalog-products {
   grid-area: products;
 }
 
-/* Форма фильтров */
+.catalog-products__title {
+  margin-top: 0;
+}
+
+/* Блок filters-form */
 
 .filters-form {
   display: grid;
   gap: var(--space-md);
 }
 
-.filters-form fieldset {
+.filters-form__group {
   margin: 0;
   padding: var(--space-md);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
 }
 
-.filters-form legend {
+.filters-form__legend {
   font-weight: 700;
 }
 
-.filters-form label {
+.filters-form__label {
   display: block;
   margin-bottom: var(--space-sm);
 }
 
-.filters-form input[type="number"] {
+.filters-form__input {
   width: 100%;
   margin-bottom: var(--space-sm);
   padding: 8px 10px;
@@ -289,16 +368,28 @@ a:focus-visible {
   font: inherit;
 }
 
-.filters-form input[type="number"]:hover {
+.filters-form__input:hover {
   border-color: var(--color-primary);
 }
 
-.filters-form input:focus-visible {
+.filters-form__input:focus-visible,
+.filters-form__checkbox:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 3px;
 }
 
-/* Дополнительный блок */
+/* Блок contacts-list */
+
+.contacts-list {
+  margin: 0;
+  padding-left: var(--space-lg);
+}
+
+.contacts-list__item {
+  margin-bottom: var(--space-xs);
+}
+
+/* Блок aside-info */
 
 .aside-info {
   max-width: var(--container-width);
@@ -308,9 +399,31 @@ a:focus-visible {
   background-color: var(--color-surface);
 }
 
+.aside-info__title {
+  margin-top: 0;
+}
+
+.aside-info__text {
+  margin: 0;
+}
+
+/* Блок site-footer */
+
+.site-footer {
+  padding: var(--space-lg);
+  background-color: var(--color-surface);
+}
+
+.site-footer__text {
+  max-width: var(--container-width);
+  margin: 0 auto var(--space-sm);
+}
+
 /* ===============================
    5. Форма и модальное окно
    =============================== */
+
+/* Блок order-dialog */
 
 .order-dialog {
   width: min(100% - 32px, 560px);
@@ -323,18 +436,30 @@ a:focus-visible {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.form-field {
+.order-dialog__title {
+  margin-top: 0;
+}
+
+/* Блок order-form */
+
+.order-form__field {
   margin-bottom: var(--space-md);
 }
 
-.form-field label {
+.order-form__field--checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.order-form__label {
   display: block;
   margin-bottom: var(--space-xs);
 }
 
-.form-field input,
-.form-field select,
-.form-field textarea {
+.order-form__input,
+.order-form__select,
+.order-form__textarea {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid var(--color-border);
@@ -342,74 +467,38 @@ a:focus-visible {
   font: inherit;
 }
 
-.form-field input[type="checkbox"] {
-  width: auto;
+.order-form__input:hover,
+.order-form__select:hover,
+.order-form__textarea:hover {
+  border-color: var(--color-primary);
 }
 
-.form-field small {
+.order-form__input:focus-visible,
+.order-form__select:focus-visible,
+.order-form__textarea:focus-visible,
+.order-form__checkbox:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.order-form__hint {
   display: block;
   margin-top: var(--space-xs);
   color: var(--color-muted);
 }
 
-/* Состояния полей формы */
-
-.form-field input:hover,
-.form-field select:hover,
-.form-field textarea:hover {
-  border-color: var(--color-primary);
-}
-
-.form-field input:focus-visible,
-.form-field select:focus-visible,
-.form-field textarea:focus-visible,
-.form-actions button:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 3px;
-}
-
-[aria-invalid="true"] {
-  border-color: var(--color-danger);
-}
-
-/* Кнопки формы */
-
-.form-actions {
+.order-form__actions {
   display: flex;
   gap: var(--space-md);
   margin-top: var(--space-lg);
 }
 
-.form-actions button {
-  padding: var(--space-sm) var(--space-md);
-  color: var(--color-primary);
-  background-color: var(--color-bg);
-  border: 1px solid var(--color-primary);
-  border-radius: var(--radius-sm);
-  font: inherit;
-  cursor: pointer;
+/* Подсветка ошибочных полей (aria-invalid добавляется из js/main.js) */
+[aria-invalid="true"] {
+  border-color: var(--color-danger);
 }
 
-.form-actions button:hover {
-  color: var(--color-white);
-  background-color: var(--color-primary);
-}
-
-.form-actions button[type="submit"] {
-  color: var(--color-white);
-  background-color: var(--color-primary);
-}
-
-.form-actions button[type="submit"]:hover {
-  background-color: var(--color-primary-dark);
-}
-
-.form-actions button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* Сообщение об успешной отправке */
+/* Блок success-message */
 
 .success-message {
   max-width: var(--container-width);
