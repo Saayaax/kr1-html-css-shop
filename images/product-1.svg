@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" role="img" aria-labelledby="t">
+  <title id="t">Изображение учебного товара</title>
+  <rect width="480" height="360" fill="#eef5ff"/>
+  <rect x="140" y="110" width="200" height="160" rx="16" fill="#0057b8"/>
+  <path d="M190 110v-20a50 50 0 0 1 100 0v20" fill="none" stroke="#003f86" stroke-width="14" stroke-linecap="round"/>
+  <circle cx="240" cy="190" r="34" fill="#ffffff"/>
+  <path d="M224 190l11 11 22-24" fill="none" stroke="#0057b8" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
